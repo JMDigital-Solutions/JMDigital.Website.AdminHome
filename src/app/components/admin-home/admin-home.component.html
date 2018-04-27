@@ -1,0 +1,20 @@
+<mat-toolbar color="primary" class="example-toolbar">
+	<button mat-icon-button (click)="snav.toggle()">
+		<mat-icon>menu</mat-icon>
+	</button>
+	<h1>Administracion</h1>
+</mat-toolbar>
+
+<mat-sidenav-container class="main-container">
+	<mat-sidenav #snav mode="side" fixedTopGap="56" fixedBottomGap="fixed" role="navigation">
+		<mat-nav-list *ngFor="let item of navItems">
+			<a mat-button class="btn-block" [routerLink]="item.Link" routerLinkActive="active"><i class="material-icons">mail_outline</i>{{item.Label}}</a>
+		</mat-nav-list>
+	</mat-sidenav>
+
+	<mat-sidenav-content role="main">
+		<div class="container-fluid">
+			<router-outlet></router-outlet>
+		</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>

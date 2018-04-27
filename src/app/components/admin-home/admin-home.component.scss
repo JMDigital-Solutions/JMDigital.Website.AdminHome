@@ -1,0 +1,39 @@
+.main-container {
+	position: absolute;
+	top: 4rem;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	.container-fluid {
+		padding-top: 0.5rem;
+	}
+
+	.mat-sidenav {
+		background: rgba(0, 0, 0, 0.02);
+		width: 18rem;
+
+		.mat-nav-list {
+
+			a {
+				border-radius: 0;
+				text-align: left;
+
+				i {
+					margin-right: 1rem;
+					font-size: 1.8rem;
+				}
+
+				&.active {
+					background: rgba(0, 0, 0, 0.07);
+					font-size: 1rem;
+					font-weight: bold;
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+	.mat-tab-nav-bar {
+		border-bottom: 0;
+	}
+}

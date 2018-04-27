@@ -1,0 +1,64 @@
+<div class="mat-elevation-z8">
+	<div class="loading-shade" *ngIf="isLoadingResults">
+		<mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+	</div>
+
+	<mat-table #table [dataSource]="dataSource" matSort>
+
+		<!-- Checkbox Column -->
+		<ng-container matColumnDef="select">
+			<mat-header-cell *matHeaderCellDef>
+				<mat-checkbox (change)="masterToggle($event)" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()"
+				 color="primary">
+				</mat-checkbox>
+			</mat-header-cell>
+			<mat-cell *matCellDef="let row">
+				<mat-checkbox (click)="$event.stopPropagation()" (change)="selectRow($event, row)" [checked]="selection.isSelected(row)"
+				 color="primary">
+				</mat-checkbox>
+			</mat-cell>
+		</ng-container>
+
+		<!-- Position Column -->
+		<ng-container matColumnDef="senderEmail">
+			<mat-header-cell *matHeaderCellDef>De</mat-header-cell>
+			<mat-cell *matCellDef="let element">{{element.senderEmail}}</mat-cell>
+		</ng-container>
+
+		<!-- Name Column -->
+		<ng-container matColumnDef="Subject">
+			<mat-header-cell *matHeaderCellDef>Asunto</mat-header-cell>
+			<mat-cell *matCellDef="let element">{{element.subject}}</mat-cell>
+		</ng-container>
+
+		<!-- Weight Column -->
+		<ng-container matColumnDef="Date">
+			<mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Recepción </mat-header-cell>
+			<mat-cell *matCellDef="let element">{{element.date | date:long }}</mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="icons">
+			<mat-header-cell *matHeaderCellDef>Accion</mat-header-cell>
+			<mat-cell *matCellDef="let row">
+				<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="actions-menu">
+					<mat-icon>more_horiz</mat-icon>
+				</button>
+				<mat-menu #menu="matMenu">
+					<button mat-menu-item (click)="readMail(row)">
+						<mat-icon>done_all</mat-icon>
+						<span>Leer</span>
+					</button>
+					<button mat-menu-item>
+						<mat-icon>clear</mat-icon>
+						<span>Eliminar</span>
+					</button>
+				</mat-menu>
+			</mat-cell>
+		</ng-container>
+
+		<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+		<mat-row mat-button *matRowDef="let row; columns: displayedColumns; let i = index" [class.active]="isRowSelected(row)"></mat-row>
+	</mat-table>
+	<mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+	</mat-paginator>
+</div>
